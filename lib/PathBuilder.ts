@@ -95,7 +95,7 @@ export default class PathBuilder {
 			return;
 		}
 		let folderPath: string = this.buildFolderPath();
-		this.path = folderPath + filename;
+		this.path = (folderPath + filename).replace(/\\/g, "/").replace(/\/\//g, "/");
 	}
 
 	private buildFolderPath(): string {
@@ -103,7 +103,7 @@ export default class PathBuilder {
 		if (paths.length < 1) {
 			return "";
 		}
-		let path = paths[0] + "\\";
+		let path = paths[0] + "/";
 		return path;
 	}
 
@@ -123,9 +123,6 @@ export default class PathBuilder {
 		if (filename.length < 1) {
 			return "";
 		}
-
-		// dir
-		filename = filename.replace("/", "\\");
 
 		// full
 		filename = filename + this.extension;

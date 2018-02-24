@@ -75,14 +75,14 @@ class PathBuilder {
             return;
         }
         let folderPath = this.buildFolderPath();
-        this.path = folderPath + filename;
+        this.path = (folderPath + filename).replace(/\\/g, "/").replace(/\/\//g, "/");
     }
     buildFolderPath() {
         let paths = atom.project.getPaths();
         if (paths.length < 1) {
             return "";
         }
-        let path = paths[0] + "\\";
+        let path = paths[0] + "/";
         return path;
     }
     buildFilename() {
@@ -99,8 +99,6 @@ class PathBuilder {
         if (filename.length < 1) {
             return "";
         }
-        // dir
-        filename = filename.replace("/", "\\");
         // full
         filename = filename + this.extension;
         return filename;
