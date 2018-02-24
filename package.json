@@ -1,20 +1,13 @@
 {
   "name": "save-as-heading",
   "main": "./dist/save-as-heading",
-  "version": "0.2.0",
+  "version": "0.0.0",
   "description": "filename auto use first line or header of markdown.",
-  "keywords": [
-    "save",
-    "filename",
-    "firstline",
-    "headingline",
-    "head",
-    "markdown"
-  ],
+  "keywords": ["save","filename","firstline","headingline","head","markdown"],
   "activationCommands": {
     "atom-workspace": "save-as-heading:save"
   },
-  "repository": "https://github.com/trashfeed/save-as-heading.git",
+  "repository": "https://github.com/trashfeed/save-as-heading",
   "license": "MIT",
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
