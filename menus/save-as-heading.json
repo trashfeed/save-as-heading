@@ -1,0 +1,26 @@
+{
+  "context-menu": {
+    "atom-text-editor": [
+      {
+        "label": "Save save-as-heading",
+        "command": "save-as-heading:save"
+      }
+    ]
+  },
+  "menu": [
+    {
+      "label": "Packages",
+      "submenu": [
+        {
+          "label": "save-as-heading",
+          "submenu": [
+            {
+              "label": "Save",
+              "command": "save-as-heading:save"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
