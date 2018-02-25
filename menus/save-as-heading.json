@@ -2,7 +2,7 @@
   "context-menu": {
     "atom-text-editor": [
       {
-        "label": "Save save-as-heading",
+        "label": "Save As Heading",
         "command": "save-as-heading:save"
       }
     ]

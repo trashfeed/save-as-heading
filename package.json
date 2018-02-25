@@ -2,7 +2,7 @@
   "name": "save-as-heading",
   "main": "./dist/save-as-heading",
   "version": "0.5.1",
-  "description": "filename auto use first line or header of markdown.",
+  "description": "This package can use the first line as the file name to quickly create or overwrite the file.",
   "keywords": [
     "save",
     "filename",

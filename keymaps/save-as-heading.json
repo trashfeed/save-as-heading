@@ -1,5 +1,5 @@
 {
   "atom-workspace": {
-    "ctrl-alt-h": "save-as-heading:save"
+    "ctrl-shift-h": "save-as-heading:save"
   }
 }
