@@ -1,7 +1,7 @@
 {
   "name": "save-as-heading",
   "main": "./dist/save-as-heading",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "description": "This package can use the first line as the file name to quickly create or overwrite the file.",
   "keywords": [
     "save",
