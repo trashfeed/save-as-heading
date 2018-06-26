@@ -1,9 +1,16 @@
 {
   "name": "save-as-heading",
   "main": "./dist/save-as-heading",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "filename auto use first line or header of markdown.",
-  "keywords": ["save","filename","firstline","headingline","head","markdown"],
+  "keywords": [
+    "save",
+    "filename",
+    "firstline",
+    "headingline",
+    "head",
+    "markdown"
+  ],
   "activationCommands": {
     "atom-workspace": "save-as-heading:save"
   },
