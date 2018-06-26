@@ -75,14 +75,14 @@ class PathBuilder {
             return;
         }
         let folderPath = this.buildFolderPath();
-        this.path = (folderPath + filename).replace(/\\/g, "/").replace(/\/\//g, "/");
+        this.path = folderPath + filename;
     }
     buildFolderPath() {
         let paths = atom.project.getPaths();
         if (paths.length < 1) {
             return "";
         }
-        let path = paths[0] + "/";
+        let path = paths[0] + "\\";
         return path;
     }
     buildFilename() {
@@ -90,14 +90,37 @@ class PathBuilder {
         if (filename.length < 1) {
             return "";
         }
+        // replace space with dash.hypens
+        let replaceType = atom.config.get(this.packageName + '.filenameReplaceSpaceType');
+        if (replaceType !== "none") {
+            let targetCharLine = atom.config.get(this.packageName + '.filenameReplaceTarget');
+            let targetChars = targetCharLine.split("|");
+            for (var i = 0; i < targetChars.length; i++) {
+                var regExp = new RegExp(targetChars[i], "g");
+                filename = filename.replace(regExp, replaceType);
+            }
+        }
         // ignore
-        let ignores = [":", "\\*", "\\?", "<", ">", "|", " "];
+        let ignores = [":", "\\*", "\\?", "<", ">", "|"];
         for (var i = 0; i < ignores.length; i++) {
             let regExp = new RegExp(ignores[i], "g");
             filename = filename.replace(regExp, "");
         }
         if (filename.length < 1) {
             return "";
+        }
+        // dir
+        filename = filename.replace("/", "\\");
+        // upper/lower/capi
+        let convetUpperLowerType = atom.config.get(this.packageName + '.filenameConvertUpperLower');
+        if (convetUpperLowerType === "upper") {
+            filename = filename.toUpperCase();
+        }
+        else if (convetUpperLowerType === "lower") {
+            filename = filename.toLowerCase();
+        }
+        else if (convetUpperLowerType === "capitalize") {
+            filename = filename[0].toUpperCase() + filename.substr(1).toLowerCase();
         }
         // full
         filename = filename + this.extension;

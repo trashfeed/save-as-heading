@@ -1,20 +1,13 @@
 {
   "name": "save-as-heading",
   "main": "./dist/save-as-heading",
-  "version": "1.0.0",
-  "description": "This package can use the first line as the file name to quickly create or overwrite the file.",
-  "keywords": [
-    "save",
-    "filename",
-    "firstline",
-    "headingline",
-    "head",
-    "markdown"
-  ],
+  "version": "0.0.0",
+  "description": "filename auto use first line or header of markdown.",
+  "keywords": ["save","filename","firstline","headingline","head","markdown"],
   "activationCommands": {
     "atom-workspace": "save-as-heading:save"
   },
-  "repository": "https://github.com/trashfeed/save-as-heading",
+  "repository": "https://github.com/trashfeed/save-as-heading.git",
   "license": "MIT",
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
