@@ -75,7 +75,7 @@ class PathBuilder {
             return;
         }
         let folderPath = this.buildFolderPath();
-        this.path = folderPath + filename;
+        this.path = (folderPath + filename).replace("//", "/");
     }
     buildFolderPath() {
         let paths = atom.project.getPaths();

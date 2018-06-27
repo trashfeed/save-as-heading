@@ -95,7 +95,7 @@ export default class PathBuilder {
 			return;
 		}
 		let folderPath: string = this.buildFolderPath();
-		this.path = folderPath + filename;
+		this.path = (folderPath + filename).replace("//", "/");
 	}
 
 	private buildFolderPath(): string {
