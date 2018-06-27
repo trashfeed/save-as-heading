@@ -103,7 +103,7 @@ export default class PathBuilder {
 		if (paths.length < 1) {
 			return "";
 		}
-		let path = paths[0] + "\\";
+		let path = paths[0] + "/";
 		return path;
 	}
 
@@ -136,7 +136,7 @@ export default class PathBuilder {
 		}
 
 		// dir
-		filename = filename.replace("/", "\\");
+		filename = filename.replace("\\", "/");
 
 		// upper/lower/capi
 		let convetUpperLowerType: string = atom.config.get(this.packageName + '.filenameConvertUpperLower');

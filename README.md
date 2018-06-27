@@ -70,24 +70,24 @@ foo bar fuga.
     - replace [`Replace from`] with [`Replace to`] in filename when saved.   
   - example 1
     - `Replace from` = ` (spaces)` , `Replace to` = `-`
-```txt
-/directory/first line code
-```
-saved file path in `/directory/first-line-code.md`
+      ```txt
+      /directory/first line code
+      ```
+      saved file path in `/directory/first-line-code.md`
   - example 2
     - `Replace from` = ` (spaces)|,` , `Replace to` = `-`
-  ```txt
-  /directory/first line code,to file name
-  ```
-  saved file path in `/directory/first-line-code-to-file-name.md`
+      ```txt
+      /directory/first line code,to file name
+      ```
+      saved file path in `/directory/first-line-code-to-file-name.md`
 - `Conversion filename`
   - convert `Uppercase` `Lowercase` `Capitalize` in filename when saved.
   - example
     - `Conversion filename` = `Capitalize`
-  ```txt
-  /directory/first-linec-code
-  ```
-  saved file path in `/directory/First-line-code.md`
+      ```txt
+      /directory/first-line-ccode
+      ```
+      saved file path in `/directory/First-line-code.md`
 
 ## Licence
 [MIT](https://raw.githubusercontent.com/trashfeed/save-as-heading/master/LICENSE.md)

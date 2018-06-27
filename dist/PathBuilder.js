@@ -82,7 +82,7 @@ class PathBuilder {
         if (paths.length < 1) {
             return "";
         }
-        let path = paths[0] + "\\";
+        let path = paths[0] + "/";
         return path;
     }
     buildFilename() {
@@ -110,7 +110,7 @@ class PathBuilder {
             return "";
         }
         // dir
-        filename = filename.replace("/", "\\");
+        filename = filename.replace("\\", "/");
         // upper/lower/capi
         let convetUpperLowerType = atom.config.get(this.packageName + '.filenameConvertUpperLower');
         if (convetUpperLowerType === "upper") {
