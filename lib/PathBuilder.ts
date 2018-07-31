@@ -1,8 +1,13 @@
+import { CompositeDisposable, TextEditor } from "atom";
+import { FileNameBuilder } from "./FileName/FileNameBuilder";
+import { FirstLineFileNameBuilder } from "./FileName/FirstLineFileNameBuilder";
+import { HeadLineFileNameBuilder } from "./FileName/HeadLineFileNameBuilder";
+import { MetaDataFileNameBuilder } from "./FileName/MetaDataFileNameBuilder";
 
 export default class PathBuilder {
 
 	public path: string;
-	private editor: atom.workspace.TextEditor;
+	private editor: TextEditor;
 	private packageName: string = "";
 	private editorText: string = "";
 	private headingText: string = "";
@@ -12,7 +17,30 @@ export default class PathBuilder {
 		this.packageName = packageName;
 		this.extension = atom.config.get(this.packageName + '.extension');
 		this.editor = atom.workspace.getActiveTextEditor();
-		this.build();
+		// this.build();
+		this.buildFilename();
+	}
+
+	private buildFilename(): void {
+		
+		// load config:filenameType
+		let filenameType: string = atom.config.get(this.packageName + '.filenameType');
+
+		// builder 
+		let filenameBuilder: FileNameBuilder;
+		if (filenameType == "Headline") {
+			// headline
+			filenameBuilder = new HeadLineFileNameBuilder(this.editor, this.packageName);
+		} else if (filenameType == "Metadata") {
+			// metadata
+			filenameBuilder = new MetaDataFileNameBuilder(this.editor, this.packageName);
+		} else {
+			// firstline
+			filenameBuilder = new FirstLineFileNameBuilder(this.editor, this.packageName);
+		}
+
+		// set a filename
+		this.headingText = filenameBuilder.build();
 	}
 
 	private build(): void {
@@ -24,7 +52,7 @@ export default class PathBuilder {
 		}
 
 		// heading
-		let useMarkdownHeader: boolean = atom.config.get(this.packageName + '.filenameType');
+		let filenameType: string = atom.config.get(this.packageName + '.filenameType');
 		let lines: string[] = this.editorText.split("\n");
 		let heading: string = "";
 		for (var key in lines) {
@@ -33,7 +61,7 @@ export default class PathBuilder {
 				continue;
 			}
 
-			if (useMarkdownHeader) {
+			if (filenameType == "Headline") {
 				let headLine: string = line.slice(0, 1);
 				if (headLine != "#") {
 					continue;
@@ -63,7 +91,7 @@ export default class PathBuilder {
 
 	}
 
-	private showComplete():void{
+	private showComplete(): void {
 		let showSuccess: boolean = atom.config.get(this.packageName + '.showSaveNotification');
 		if (showSuccess) {
 			this.showSuccess(this.path + " saved.");
@@ -89,7 +117,7 @@ export default class PathBuilder {
 		}
 
 		this.clear();
-		let filename: string = this.buildFilename();
+		let filename: string = this.parseFilename();
 		if (filename.length == 0) {
 			this.showWraning(" Empty filename.");
 			return;
@@ -107,7 +135,7 @@ export default class PathBuilder {
 		return path;
 	}
 
-	private buildFilename(): string {
+	private parseFilename(): string {
 
 		let filename: string = this.headingText;
 		if (filename.length < 1) {
@@ -116,11 +144,11 @@ export default class PathBuilder {
 
 		// replace space with dash.hypens
 		let replaceType: string = atom.config.get(this.packageName + '.filenameReplaceSpaceType');
-		if(replaceType !== "none"){
-			let targetCharLine : string  = atom.config.get(this.packageName + '.filenameReplaceTarget');
-			let targetChars : string = targetCharLine.split("|");
-			for(var i=0;i < targetChars.length;i++){
-				var regExp = new RegExp( targetChars[i], "g" ) ;
+		if (replaceType !== "none") {
+			let targetCharLine: string = atom.config.get(this.packageName + '.filenameReplaceTarget');
+			let targetChars: string[] = targetCharLine.split("|");
+			for (var i = 0; i < targetChars.length; i++) {
+				var regExp = new RegExp(targetChars[i], "g");
 				filename = filename.replace(regExp, replaceType);
 			}
 		}
@@ -140,12 +168,12 @@ export default class PathBuilder {
 
 		// upper/lower/capi
 		let convetUpperLowerType: string = atom.config.get(this.packageName + '.filenameConvertUpperLower');
-		if(convetUpperLowerType === "upper"){
+		if (convetUpperLowerType === "upper") {
 			filename = filename.toUpperCase();
-		} else if(convetUpperLowerType === "lower"){
+		} else if (convetUpperLowerType === "lower") {
 			filename = filename.toLowerCase();
-		} else if(convetUpperLowerType === "capitalize"){
-			 filename = filename[0].toUpperCase() + filename.substr(1).toLowerCase();
+		} else if (convetUpperLowerType === "capitalize") {
+			filename = filename[0].toUpperCase() + filename.substr(1).toLowerCase();
 		}
 
 		// full

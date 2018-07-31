@@ -1,5 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const FirstLineFileNameBuilder_1 = require("./FileName/FirstLineFileNameBuilder");
+const HeadLineFileNameBuilder_1 = require("./FileName/HeadLineFileNameBuilder");
+const MetaDataFileNameBuilder_1 = require("./FileName/MetaDataFileNameBuilder");
 class PathBuilder {
     constructor(packageName) {
         this.packageName = "";
@@ -9,7 +12,28 @@ class PathBuilder {
         this.packageName = packageName;
         this.extension = atom.config.get(this.packageName + '.extension');
         this.editor = atom.workspace.getActiveTextEditor();
-        this.build();
+        // this.build();
+        this.buildFilename();
+    }
+    buildFilename() {
+        // load config:filenameType
+        let filenameType = atom.config.get(this.packageName + '.filenameType');
+        // builder 
+        let filenameBuilder;
+        if (filenameType == "Headline") {
+            // headline
+            filenameBuilder = new HeadLineFileNameBuilder_1.HeadLineFileNameBuilder(this.editor, this.packageName);
+        }
+        else if (filenameType == "Metadata") {
+            // metadata
+            filenameBuilder = new MetaDataFileNameBuilder_1.MetaDataFileNameBuilder(this.editor, this.packageName);
+        }
+        else {
+            // firstline
+            filenameBuilder = new FirstLineFileNameBuilder_1.FirstLineFileNameBuilder(this.editor, this.packageName);
+        }
+        // set a filename
+        this.headingText = filenameBuilder.build();
     }
     build() {
         // body
@@ -18,7 +42,7 @@ class PathBuilder {
             return;
         }
         // heading
-        let useMarkdownHeader = atom.config.get(this.packageName + '.filenameType');
+        let filenameType = atom.config.get(this.packageName + '.filenameType');
         let lines = this.editorText.split("\n");
         let heading = "";
         for (var key in lines) {
@@ -26,7 +50,7 @@ class PathBuilder {
             if (line.length < 1) {
                 continue;
             }
-            if (useMarkdownHeader) {
+            if (filenameType == "Headline") {
                 let headLine = line.slice(0, 1);
                 if (headLine != "#") {
                     continue;
@@ -69,7 +93,7 @@ class PathBuilder {
             return;
         }
         this.clear();
-        let filename = this.buildFilename();
+        let filename = this.parseFilename();
         if (filename.length == 0) {
             this.showWraning(" Empty filename.");
             return;
@@ -85,7 +109,7 @@ class PathBuilder {
         let path = paths[0] + "/";
         return path;
     }
-    buildFilename() {
+    parseFilename() {
         let filename = this.headingText;
         if (filename.length < 1) {
             return "";

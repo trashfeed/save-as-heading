@@ -13,37 +13,38 @@ export let config = {
 	filenameType: {
 		order: 2,
 		title: "Filename type",
-		description: 'Use filename at `First line` or `Headline(#/markdown)``',
-		type: "boolean",
-		default: false,
+		description: 'Use filename at `First line` or `Headline(#/markdown)` or `Metadata` ',
+		type: "string",
+		default: "Firstline",
     enum: [
-      {value: false, description: 'First line'},
-      {value: true, description: "Headline(#/markdown) use first line"},
+      {value: "Firstline", description: 'First line'},
+      {value: "Headline", description: "Headline(#/markdown) use first line"},
+      {value: "Metadata", description: 'Metadata'},
     ]
 	},
-	filenameReplaceTarget: {
+	filenameKeyInMetadata: {
 		order: 3,
+		title: "Key in Metadata",
+		description: "use Key when Filename type at `Metadata` ",
+		type: "string",
+		default: "%title%",
+	},
+	filenameReplaceTarget: {
+		order: 4,
 		title: "Replace from",
 		description: "replace in title when save a filename(default:`space`). if use multiple chars, separate them with `|` (ex:_| |-)",
 		type: "string",
 		default: " ",
 	},
 	filenameReplaceSpaceType: {
-		order: 4,
+		order: 5,
 		title: "Replace to",
 		description: "replace [`Replace from`] with [`Replace to`] in filename when saved.",
 		type: "string",
 		default: "-",
-		// enum: [
-	  //      {value: '–', description: 'En dashes(–)'},
-		// 		 {value: '―', description: 'Em dashes(―)'},
-	  //      {value: '-', description: 'Hyphens(-)'},
-		// 		 {value: '_', description: 'Underscore(_)'},
-		// 		 {value: '', description: 'Erace'},
-	  //    ]
 	},
 	filenameConvertUpperLower: {
-		order: 5,
+		order: 6,
 		title: "Conversion filename",
 		description: "convert `Uppercase` `Lowercase` `Capitalize` in filename when saved.",
 		type: "string",
@@ -56,13 +57,12 @@ export let config = {
 	     ]
 	},
 	showSaveNotification: {
-		order: 6,
+		order: 7,
 		title: "Show notification on saved",
 		type: "boolean",
 		default: true,
 	},
 }
-
 
 export function activate(state: any) {
 	subscriptions = new CompositeDisposable();

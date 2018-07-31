@@ -16,7 +16,7 @@ apm install save-as-heading
 
 ## Usage
 ### Example1
-1. input the following text.
+1. input the next sentence.
 ``` txt
 title
 foo bar fuga.
@@ -28,7 +28,7 @@ foo bar fuga.
 > to change `.md` to `Setting` - `Extension`
 
 ### Example2
-1. input the following text.
+1. input the next sentence.
 ```txt
 /directory/directory/title
 foo bar fuga.
@@ -40,7 +40,8 @@ foo bar fuga.
 
 
 ### Example3
-1. input the following text.
+1. set a `Setting` - `Filename type` is `Headline`.
+2. input the next sentence.
 ``` markdown
 ...
 title
@@ -49,9 +50,25 @@ foo bar fuga.
 ...
 ...
 ```
-2. `ctrl` + `shift` + `h`
-3. A file name `head1.md` is created or overrided.
-> to change to `Setting` - `Filename type`
+3. `ctrl` + `shift` + `h`
+4. A file name `head1.md` is created or overrided.
+
+
+
+### Example4
+1. set a `Setting` - `Filename type` is `Metadata`.
+2. input the next sentence.
+``` 
+title: This would be wonderful
+date: 2018-07-31
+publish: true
+
+This is a new file, i'm about to save it with `ctrl+shift+H`.
+```
+3. `ctrl` + `shift` + `h`
+4. A file name `This-would-be-wonderful.md` is created or overrided.
+> to change `key` in Metadata to `Setting` - `Key in Metadata` (e.g. `%date%-%title%`).
+
 
 
 ## Options
@@ -59,8 +76,16 @@ foo bar fuga.
   - save a file name of extension.
   - default `.md`.
 - `Filename type`
-  - use filename at first line or heading line (e.g. #) of markdown.
-  - default `first line`.
+  - Firstline
+    - the first line is used in the filename.
+  - Headline
+    - the heading line (e.g. #) of markdown is used in the filename.
+  - Metadata
+    - the Markdown Metadata is used in filename. Refer to this setting is `Key in Metadata`.
+  - default `Firstline`.
+- `Filename key in Metadata`
+  - set any character enclosed by the percent(`%`) is the key for the filename(e.g. `%date%`,`%date%-%title%`). 
+  - default `%date%`.
 - `Show save success notification`
   - show/hide notification when saved file.
 - `Replace from` / `Replace to`

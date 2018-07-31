@@ -9,7 +9,11 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "target": "es6",
-    "strictNullChecks":false
+    "strictNullChecks": false
   },
+  // "include": [
+  //   "./*.ts",
+  //   "./FileName/*.ts"
+  // ],
   "compileOnSave": true
 }
